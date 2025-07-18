@@ -1,4 +1,4 @@
-Attribute VB_Name = "ColNumToLetter"
+Attribute VB_Name = "Z_ColNumToLetter"
 Option Explicit
 
 Function ColumnNumberToLetter(ByVal colNum As Integer) As String
