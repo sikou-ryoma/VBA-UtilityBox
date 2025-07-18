@@ -1,6 +1,11 @@
 Attribute VB_Name = "myModule"
 Option Explicit
 
+'---------------------------------------------
+'   ショートカットキーを設定しているのでお好みで任意のキーを設定してください
+'   ショートカットキーはCtrl + Shift + 任意のキー
+'----------------------------------------------
+
 Sub home()
 Attribute home.VB_ProcData.VB_Invoke_Func = "E\n14"
 '---------------------------------------------
@@ -31,7 +36,7 @@ Attribute sheetslist.VB_ProcData.VB_Invoke_Func = "L\n14"
     Dim wbCnt As Variant, wsCnt As Variant
     Dim i As Long, j As Long, SaveAsFilePath As String
     
-    SaveAsFilePath = "C:\Users\user1\Documents\千々和_作業記録\Excel作成分\作業ブックログ"
+    SaveAsFilePath = "C:\Path\BooksLog" ' 保存先のパスを指定してください
     Set logBk = Workbooks.Add
     Set logSh.sh = logBk.Sheets(1)
     With logSh.sh
