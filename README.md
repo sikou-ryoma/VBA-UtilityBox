@@ -71,7 +71,7 @@ If Not wb Is Nothing Then
     MsgBox wb.Name
 End If
 ```
-
+K
 #### logger（ログ出力機能）
 
 ```vba
@@ -109,9 +109,25 @@ End Sub
 
 ## フォルダ構成
 
-- `Modules/` ... 汎用モジュール
-- `Classes/` ... クラスモジュール
-- `Samples/` ... サンプルファイル
+- `Root/` ... 汎用モジュール集
+- `logger/` ... ログ出力機能モジュール群
+- `waitMsg/` ... 進捗時の簡易メッセージフォームと制御モジュール
+
+## モジュール一覧
+
+| モジュール名                | 種別      | 概要・用途                                               |
+|----------------------------|-----------|----------------------------------------------------------|
+| Z_ColNumToLetter.bas         | Module    | 列番号をExcelの列記号（A, B, ...）に変換する関数         |
+| Z_ColumnNumber.bas          | Module    | Excel列記号に対応した列番号の列挙型定義                  |
+| DateUtility.cls            | Class     | 日付操作・月初月末取得など日付ユーティリティ             |
+| FileOjt.cls                | Class     | ファイル選択・保存・フォルダ選択などファイル操作支援      |
+| SheetManager.cls           | Class     | シート・範囲・行列番号などワークシート管理ユーティリティ  |
+| BookManager.cls            | Class     | 複数ブックの管理・切替・一括クローズ等                   |
+| logger\clsLogger.cls       | Class     | ログ出力・ログレベル制御                                  |
+| logger\Z_LogInit.bas       | Module    | ロガー初期化・設定読込                                    |
+| logger\modConfig.bas       | Module    | INIファイルからの設定値取得                               |
+| waitMsg\Z_WaitMsg_show.bas | Module    | 進捗メッセージフォームの表示制御                         |
+| waitMsg\WaitMsg.frm        | Form      | 進捗メッセージ表示用フォーム                             |
 
 ## ライセンス
 
