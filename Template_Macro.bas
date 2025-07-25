@@ -6,11 +6,16 @@ Public Const MACRO_NAME As String = "Template_Macro"
 
 Private FO As New FileOjt
 Public dUtil As New DateUtility
-Public currentFolderPath
+Public currentFolderPath as String
+Public tempFolderPath as String
+Public reportFolderPath as String
+
 
 Public Sub template_main()
 
     currentFolderPath = FO.UpPath(ThisWorkbook.path)
+    tempFolderPath = currentFolderPath & "\temp"
+    reportFolderPath = currentFolderPath & "\report"
     Call InitializeLogger(currentFolderPath)
 
     On Error GoTo ErrHandler
