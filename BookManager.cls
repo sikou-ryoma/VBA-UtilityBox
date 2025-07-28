@@ -58,7 +58,7 @@ Public Sub PrintWorkbookNames()
 
     Dim k As Variant
     
-    For Each k In wbDict.keys
+    For Each k In wbDict.Keys
         Debug.Print k & ": " & wbDict(k).Name
     Next k
     
@@ -77,14 +77,25 @@ End Sub
 '全てのブックをディクショナリから削除
 Public Sub CloseAll(Optional ByVal saveChanges As Boolean = False)
 
+    Dim closedWbDict As Object
+    Set closedWbDict = CreateObject("Scripting.Dictionary")
+    
     Dim k As Variant
+    Dim wb As Workbook
     
-    For Each k In wbDict.keys
-        wbDict(k).Close saveChanges:=saveChanges
+    For Each k In wbDict.Keys
+        Set wb = wbDict(k)
+        
+        ' まだ閉じていないブックだけ処理（オブジェクトの参照で一意性判定）
+        If Not closedWbDict.exists(wb.Name) Then
+            If Not wb Is Nothing Then
+                wb.Close saveChanges:=saveChanges
+                closedWbDict.Add wb.Name, True
+            End If
+        End If
     Next k
-    
+
     wbDict.RemoveAll
-    
 End Sub
 
 '指定したブックが開いているかを確認する関数
