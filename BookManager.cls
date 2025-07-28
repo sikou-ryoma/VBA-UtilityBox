@@ -9,6 +9,8 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
+Private Const CLASSNAME As String = "BookManager"
+
 'ブックの複数管理用ユーティリティクラス
 'Dictionaryでの管理
 
@@ -24,9 +26,19 @@ End Sub
 'IsWorkbookOpenを呼び出して指定したブックが開いているかを判断し適切に処理
 Public Sub AddWorkbook(ByVal key As String, ByVal filePath As String)
                                                     
+                                                    
     Dim wbName As String
     wbName = Dir(filePath)
-
+    
+    Dim k As Variant
+    
+    For Each k In wbDict.keys
+        If wbDict(k).Name = wbName Then
+            MsgBox "ディクショナリ内に同じ名前のブックが存在します。", vbExclamation, CLASSNAME
+            Exit Sub
+        End If
+    Next k
+    
     If Not wbDict.exists(key) Then
         Dim wb As Workbook
         If IsWorkbookOpen(wbName) Then
@@ -37,7 +49,7 @@ Public Sub AddWorkbook(ByVal key As String, ByVal filePath As String)
             wbDict.Add key, wb
         End If
     Else
-        MsgBox "キー '" & key & "' は既に存在します。", vbExclamation
+        MsgBox "キー '" & key & "' は既に存在します。", vbExclamation, CLASSNAME
     End If
     
 End Sub
