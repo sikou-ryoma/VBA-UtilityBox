@@ -12,12 +12,9 @@ Public Const MACRO_NAME As String = "Template_Macro"
 '------------------------------------------------------------------------
 Private FO As New FileOjt
 Private bm As New BookManager
-Private dUtil As New DateUtility
+Private du As New DateUtility
+Private Paths As New PathConfig
 
-Private gProjectFolderPath As String
-Private gTempFolderPath As String
-Private gReportFolderPath As String
-Private gCurrentFolderPath As String
 
 
 Public Sub MainContriller()
@@ -28,23 +25,21 @@ Public Sub MainContriller()
     
     Application.ScreenUpdating = False
     
-    gProjectFolderPath = FO.UpPath(ThisWorkbook.path)
-    Call InitializeLogger(gProjectFolderPath)
-    gTempFolderPath = gProjectFolderPath & "\output\temp"
-    gReportFolderPath = gProjectFolderPath & "\output\reports"
-    'gCurrentFolderPath = Environ("USERPROFILE") & "\Documents"
-    gCurrentFolderPath = gProjectFolderPath & "\test" 'デバッグ用パス
+    Paths.Init FO.UpPath(ThisWorkbook.path)
+    Call InitializeLogger(Paths.ProjectRoot)
+    Paths.SetPath "test", Paths.ProjectRoot & "\test"
+    Paths.SetPath "documents", Environ("USERPROFILE") & "\Documents"
     
     logger.Info PROC_NAME & " macro name    : " & MACRO_NAME
     logger.Info PROC_NAME & " macro version : " & VERSION
-    logger.DebugMsg PROC_NAME & " projectFolderPath : " & gProjectFolderPath
-    logger.DebugMsg PROC_NAME & " tempFolderPath    : " & gTempFolderPath
-    logger.DebugMsg PROC_NAME & " reportFolderPath  : " & gReportFolderPath
+    logger.DebugMsg PROC_NAME & " ProjectRoot : " & Paths.ProjectRoot
+    logger.DebugMsg PROC_NAME & " TempPath    : " & Paths.TempPath
+    logger.DebugMsg PROC_NAME & " ReportsPath : " & Paths.ReportsPath
     
     logger.Info PROC_NAME & " 処理の開始"
     
-    ChDrive Left(gCurrentFolderPath, 1)
-    ChDir gCurrentFolderPath
+    ChDrive Left(Paths.GetPath("test"), 1)
+    ChDir Paths.GetPath("test")
     
     On Error GoTo ErrHandler
         
