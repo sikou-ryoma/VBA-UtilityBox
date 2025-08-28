@@ -15,10 +15,13 @@ Option Explicit
 Private mProjectRoot As String
 Private mReportsPath As String
 Private mTempPath As String
+Private mTestPath As String
+Private mFormatPath As String
 Private mCustomPaths As Object ' 可変パスを保持する辞書
 
 Private Sub Class_Initialize()
     '---可変パス用のDictionary
+    mProjectRoot = ThisWorkbook.path
     Set mCustomPaths = CreateObject("Scripting.Dictionary")
 End Sub
 
@@ -35,6 +38,13 @@ Public Property Get TempPath() As String
     TempPath = mTempPath
 End Property
 
+Public Property Get TestPath() As String
+    TestPath = mTestPath
+End Property
+
+Public Property Get FormatPath() As String
+    FormatPath = mFormatPath
+End Property
 
 '---固定パスのイニシャライズ
 '---Initの呼び出しは必ず行う
@@ -42,6 +52,8 @@ Public Sub Init(ByVal basePath As String)
     mProjectRoot = basePath
     mReportsPath = mProjectRoot & "\output\reports"
     mTempPath = mProjectRoot & "\output\temp"
+    mTestPath = mProjectRoot & "\test"
+    mFormatPath = mProjectRoot & "\workbook\format"
 End Sub
 
 
@@ -61,4 +73,13 @@ Public Function GetPath(ByVal key As String) As String
         Err.Raise 9999, , "Path for key '" & key & "' is not set."
     End If
 End Function
+
+Public Sub SetCurrentPath(Optional ByVal basePath As String = "")
+
+    If basePath = "" Then basePath = mProjectRoot
+    
+    ChDrive Left(basePath, 1)
+    ChDir basePath
+
+End Sub
 

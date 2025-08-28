@@ -49,17 +49,17 @@ Public Property Get book() As Workbook
 End Property
 
 '指定した範囲をRange型変数へ代入・取得
-Public Property Set rng(ByRef SelectRng As Range)
+Public Property Set RNG(ByRef SelectRng As Range)
     Set pRange = SelectRng
 End Property
 
-Public Property Get rng() As Range
-    Set rng = pRange
+Public Property Get RNG() As Range
+    Set RNG = pRange
 End Property
 
 'rngで取得したRangeオブジェクトをバリアント型配列へ代入・取得
-Public Property Let matrix(ByVal rng As Variant)
-    pMatrix = rng
+Public Property Let matrix(ByVal RNG As Variant)
+    pMatrix = RNG
 End Property
 
 Public Property Get matrix() As Variant

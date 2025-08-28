@@ -32,14 +32,14 @@ Public Sub AddWorkbook(ByVal key As String, ByVal filePath As String)
     
     Dim k As Variant
     
-    For Each k In wbDict.keys
+    For Each k In wbDict.Keys
         If wbDict(k).Name = wbName Then
             MsgBox "ディクショナリ内に同じ名前のブックが存在します。", vbExclamation, CLASSNAME
             Exit Sub
         End If
     Next k
     
-    If Not wbDict.exists(key) Then
+    If Not wbDict.Exists(key) Then
         Dim wb As Workbook
         If IsWorkbookOpen(wbName) Then
             Set wb = Workbooks(wbName)
@@ -55,12 +55,12 @@ Public Sub AddWorkbook(ByVal key As String, ByVal filePath As String)
 End Sub
 
 'ディクショナリよりブックの呼び出し
-Public Function GetWorkbook(ByVal key As String) As Workbook
+Public Function GetWb(ByVal key As String) As Workbook
 
-    If wbDict.exists(key) Then
-        Set GetWorkbook = wbDict(key)
+    If wbDict.Exists(key) Then
+        Set GetWb = wbDict(key)
     Else
-        Set GetWorkbook = Nothing
+        Set GetWb = Nothing
     End If
     
 End Function
@@ -70,7 +70,7 @@ Public Sub PrintWorkbookNames()
 
     Dim k As Variant
     
-    For Each k In wbDict.keys
+    For Each k In wbDict.Keys
         Debug.Print k & ": " & wbDict(k).Name
     Next k
     
@@ -79,19 +79,28 @@ End Sub
 '指定したブックをディクショナリから削除
 Public Sub CloseAndRemove(ByVal key As String, Optional ByVal saveChanges As Boolean = False)
 
-    If wbDict.exists(key) Then
+    If wbDict.Exists(key) Then
         wbDict(key).Close saveChanges:=saveChanges
         wbDict.Remove key
     End If
     
 End Sub
 
+Public Sub Remove(ByVal key As String)
+
+    If wbDict.Exists(key) Then
+        wbDict.Remove key
+    End If
+    
+End Sub
+
+
 '全てのブックをディクショナリから削除
 Public Sub CloseAll(Optional ByVal saveChanges As Boolean = False)
 
     Dim k As Variant
     
-    For Each k In wbDict.keys
+    For Each k In wbDict.Keys
         wbDict(k).Close saveChanges:=saveChanges
     Next k
     

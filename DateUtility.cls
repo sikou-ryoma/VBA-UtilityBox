@@ -16,7 +16,7 @@ Private tgtM As Long 'targetMonth
 Private tgtD As Long 'targetDay
 
 'インスタンス生成時に現在の日付の情報が入る
-Private Sub class_initialize()
+Private Sub Class_Initialize()
     tgtY = Year(Date)
     tgtM = Month(Date)
     tgtD = Day(Date)

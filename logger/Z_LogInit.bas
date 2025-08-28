@@ -1,14 +1,17 @@
 Attribute VB_Name = "Z_LogInit"
 Option Explicit
 
+'----------------------------------------------------------------------
 '   clsLoggerのイニシャライズ用パブリックモジュール
 '   ロガーの設定をiniファイルから読み込む
 '----------------------------------------------------------------------
+
 Public logger As clsLogger
 
 Public Sub InitializeLogger(ByVal folderPath As String)
 
     Const PROC_NAME As String = "[InitializeLogger]"
+
     Dim iniPath As String
     
     iniPath = folderPath & "\config\log_config.ini"
@@ -28,11 +31,12 @@ Public Sub InitializeLogger(ByVal folderPath As String)
             End If
             On Error GoTo 0
         End If
-        
         .Info PROC_NAME & " ログ開始"
+        .Info PROC_NAME & " --------------------------------------------------------"
         .Info PROC_NAME & " LogLevel   : " & .LogLevel
         .Info PROC_NAME & " LogFolder  : " & .LogFolder
         .Info PROC_NAME & " FilePrefix : " & .FilePrefix
+        .Info PROC_NAME & " --------------------------------------------------------"
     End With
 End Sub
 
