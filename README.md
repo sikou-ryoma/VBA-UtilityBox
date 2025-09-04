@@ -25,7 +25,7 @@ ExcelのVBAプロジェクトに必要な機能だけを簡単に追加できる
 #### ColNumToLetter.bas
 
 ```vba
-' 列番号から列記号(A, B, ..., Z, AA, ...)を取得
+' 列番号から列記号(A, B, ..., Z, AA, ...)を取得v
 Dim colLetter As String
 colLetter = ColumnNumberToLetter(28) ' → "AB"
 ```
@@ -71,7 +71,28 @@ If Not wb Is Nothing Then
     MsgBox wb.Name
 End If
 ```
-K
+
+#### SheetCollection.cls
+
+```vba
+' 全ワークシートを一括管理し、各シートのSheetManagerへアクセス
+Dim coll As New SheetCollection
+coll.LoadAll ThisWorkbook
+
+Debug.Print coll.Count ' 登録されたシート数
+
+' 全SheetManagerインスタンスのResetメソッドを一括実行
+coll.ForEachCall "Reset"
+
+' 特定シートのSheetManagerを取得してプロパティ操作
+Dim sm As SheetManager
+Set sm = coll.GetWs("Sheet1")
+If Not sm Is Nothing Then
+    sm.startRow = 2
+    Debug.Print sm.startRow
+End If
+```
+
 #### logger（ログ出力機能）
 
 ```vba
@@ -123,6 +144,7 @@ End Sub
 | FileOjt.cls                | Class     | ファイル選択・保存・フォルダ選択などファイル操作支援      |
 | SheetManager.cls           | Class     | シート・範囲・行列番号などワークシート管理ユーティリティ  |
 | BookManager.cls            | Class     | 複数ブックの管理・切替・一括クローズ等                   |
+| SheetCollection.cls        | Class     | 複数のSheetManagerインスタンスを一括管理するコレクション。キーでアクセス・追加・削除・一括操作が可能 |
 | logger\clsLogger.cls       | Class     | ログ出力・ログレベル制御                                  |
 | logger\Z_LogInit.bas       | Module    | ロガー初期化・設定読込                                    |
 | logger\modConfig.bas       | Module    | INIファイルからの設定値取得                               |
